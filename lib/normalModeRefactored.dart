@@ -1,66 +1,41 @@
 import 'package:flutter/material.dart';
 import 'Concave_shadow.dart';
 import 'package:analog_clock/analog_clock.dart';
-import 'normalModeRefactored.dart';
-import 'darkTest.dart';
+import 'darkmode.dart';
 import 'package:provider/provider.dart';
 import 'modeProvider.dart';
 
-void main() => runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => ModeProvider()),
-        ],
-        child: MyApp(),
-      ),
-    );
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class DarkModeFinal extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeTheme(),
-    );
-  }
+  _DarkModeFinalState createState() => _DarkModeFinalState();
 }
 
-class HomeTheme extends StatefulWidget {
-  @override
-  _HomeThemeState createState() => _HomeThemeState();
-}
+class _DarkModeFinalState extends State<DarkModeFinal> {
+  static const IconData fire_1 =
+      const IconData(0xe800, fontFamily: 'MyFlutterApp');
 
-class _HomeThemeState extends State<HomeTheme> {
-  @override
-  Widget build(BuildContext context) {
-    return Provider.of<ModeProvider>(context).darkMode
-        ? DarkModeFinal()
-        : MyHomePage();
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   final color = const Color(0xb6bfd2);
-  var shade7002 = Colors.blue[700];
-  var bodyColor = Colors.grey[200];
+  var shade7002 = Colors.redAccent;
+  var bodyColor = Colors.grey[850];
   var grey100 = Colors.grey[100];
   var grey400 = Colors.grey[400];
   var grey500 = Colors.grey[500];
-  var bosShadowRight = Colors.grey[600];
-  var shadowLeft = Colors.white;
+  var bosShadowRight = Colors.grey[800];
+  var shadowLeft = Colors.black54;
+
+//  final color = const Color(0xb6bfd2);
+//  var shade7002 = Colors.blue[700];
+//  var bodyColor = Colors.grey[200];
+//  var grey100 = Colors.grey[100];
+//  var grey400 = Colors.grey[400];
+//  var grey500 = Colors.grey[500];
+//  var bosShadowRight = Colors.grey[600];
+//  var shadowLeft = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: bodyColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -74,16 +49,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     'PERIOD',
-                    style: TextStyle(color: Colors.grey.shade500),
+                    style: TextStyle(color: shade7002),
                   ),
                   Text(
                     'LAST 30 DAYS',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.grey[400],
                     ),
                   ),
                   Container(
-                    child: Icon(Icons.navigate_next),
+                    child: Icon(
+                      Icons.navigate_next,
+                      color: Colors.redAccent,
+                    ),
                     width: 40,
                     height: 30,
                     decoration: BoxDecoration(
@@ -123,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 250,
                   height: 250,
                   decoration: BoxDecoration(
-                    color: grey100,
+                    color: bodyColor,
                     shape: BoxShape.circle,
                     boxShadow: getShadow(),
                   ),
@@ -168,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Icon(
                   Icons.whatshot,
                   size: 60.0,
-                  color: Colors.deepOrange,
+                  color: shade7002,
                 ),
                 height: 150,
                 width: MediaQuery.of(context).size.width / 3,
@@ -185,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Center(
                       child: Text(
                     'MODE',
-                    style: TextStyle(color: shade7002, fontSize: 15),
+                    style: TextStyle(color: Colors.redAccent, fontSize: 15),
                   )),
                 ),
                 height: 80,
@@ -193,20 +171,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: BoxDecoration(
                     color: bodyColor,
                     shape: BoxShape.circle,
-                    boxShadow: getShadowGradient(),
+                    boxShadow: getShadow(),
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          grey100,
-                          grey100,
-                          grey400,
-                          grey500,
+                          Colors.grey[700],
+                          Colors.grey[800],
+                          Colors.grey[900],
+                          Colors.grey[900],
                         ],
                         stops: [
                           0.1,
                           0.3,
-                          0.8,
+                          0.7,
                           1
                         ])),
               ),
@@ -263,14 +241,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       BoxShadow(
           color: bosShadowRight,
-          offset: Offset(4.0, 4.0),
-          blurRadius: 15.0,
-          spreadRadius: 4.0),
+          offset: Offset(4.0, 1.0),
+          blurRadius: 1.0,
+          spreadRadius: 1.0),
       BoxShadow(
           color: shadowLeft,
           offset: Offset(-4.0, -4.0),
           blurRadius: 5.0,
-          spreadRadius: 4),
+          spreadRadius: 3),
     ];
   }
 
